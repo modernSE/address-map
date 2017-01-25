@@ -8,6 +8,12 @@ public class Connection {
 	private Address point2;
 	private BigDecimal distance;
 
+	public Connection(Address point1, Address point2) {
+		super();
+		this.point1 = point1;
+		this.point2 = point2;
+	}
+
 	public Address getPoint1() {
 		return point1;
 	}
