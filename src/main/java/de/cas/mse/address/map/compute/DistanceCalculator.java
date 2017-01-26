@@ -39,6 +39,14 @@ public abstract class DistanceCalculator {
 		calculateInternal(part1, part2, progressIndicator);
 	}
 
+	/**
+	 * gets two equal sized lists of addresses. The calculation adds the
+	 * connections directly to the {@link AddressCatalogue}.
+	 * 
+	 * @param part1
+	 * @param part2
+	 * @param progressIndicator
+	 */
 	protected abstract void calculateInternal(List<Address> part1, List<Address> part2,
 			ProgressIndicator progressIndicator);
 

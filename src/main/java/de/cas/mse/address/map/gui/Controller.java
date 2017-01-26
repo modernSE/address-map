@@ -1,5 +1,6 @@
 package de.cas.mse.address.map.gui;
 
+import com.google.common.base.Stopwatch;
 import com.google.inject.Injector;
 
 import de.cas.mse.address.map.data.Address;
@@ -25,6 +26,8 @@ public class Controller {
 	private Label progressLabel;
 	@FXML
 	private ProgressBar progressBar;
+	@FXML
+	private Label timeLabel;
 
 	private Injector injector;
 	private AddressCatalogue catalogue;
@@ -40,6 +43,8 @@ public class Controller {
 		progressLabel.textProperty().bind(task.messageProperty());
 		progressBar.progressProperty().bind(task.progressProperty());
 		task.setOnComputation(e -> redraw());
+		Stopwatch sw = Stopwatch.createStarted();
+		task.setOnSucceeded(e -> timeLabel.setText("Time: " + sw.stop().toString()));
 		new Thread(task).start();
 	}
 

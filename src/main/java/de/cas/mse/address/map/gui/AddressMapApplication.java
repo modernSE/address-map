@@ -5,7 +5,8 @@ import java.io.IOException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import de.cas.mse.address.map.Module;
+import de.cas.mse.address.map.ParallelModule;
+import de.cas.mse.address.map.SequentialModule;
 import de.cas.mse.address.map.data.DataLoader;
 import de.cas.mse.address.map.data.DataLoader.DataSize;
 import javafx.application.Application;
@@ -25,9 +26,13 @@ public class AddressMapApplication extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Address Map");
 
-		injector = Guice.createInjector(new Module());
+		if (!getParameters().getUnnamed().isEmpty() && getParameters().getUnnamed().get(0).equals("par")) {
+			injector = Guice.createInjector(new ParallelModule());
+		} else {
+			injector = Guice.createInjector(new SequentialModule());
+		}
 
-		loadData();
+		loadData(DataSize.SMALL);
 		initRootLayout();
 	}
 
@@ -37,8 +42,8 @@ public class AddressMapApplication extends Application {
 		System.exit(0);
 	}
 
-	private void loadData() {
-		injector.getInstance(DataLoader.class).loadAddessesFromCsv(DataSize.SMALL);
+	private void loadData(DataSize size) {
+		injector.getInstance(DataLoader.class).loadAddessesFromCsv(size);
 	}
 
 	private void initRootLayout() {

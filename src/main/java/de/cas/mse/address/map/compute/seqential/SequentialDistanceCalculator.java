@@ -23,7 +23,8 @@ public class SequentialDistanceCalculator extends DistanceCalculator {
 	}
 
 	@Override
-	protected void calculateInternal(List<Address> part1, List<Address> part2, ProgressIndicator progressIndicator) {
+	protected void calculateInternal(List<Address> part1, List<Address> part2,
+			ProgressIndicator progressIndicator) {
 		for (int i = 0; i < part1.size(); i++) {
 			getAddressCatalogue().getConnections().add(service.computeConnection(part1.get(i), part2.get(i)));
 			progressIndicator.updateProgress(i, part1.size());

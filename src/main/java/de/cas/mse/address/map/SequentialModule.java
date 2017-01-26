@@ -7,7 +7,7 @@ import de.cas.mse.address.map.compute.DistanceCalculator;
 import de.cas.mse.address.map.compute.seqential.SequentialCoordinateCalculator;
 import de.cas.mse.address.map.compute.seqential.SequentialDistanceCalculator;
 
-public class Module extends AbstractModule {
+public class SequentialModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

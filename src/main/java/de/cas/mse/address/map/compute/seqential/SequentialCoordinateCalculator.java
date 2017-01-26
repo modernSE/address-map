@@ -10,23 +10,22 @@ import de.cas.mse.address.map.data.AddressCatalogue;
 import de.cas.mse.address.map.gui.tasks.ProgressIndicator;
 
 @Singleton
-public class SequentialCoordinateCalculator implements CoordinateCalculator {
+public class SequentialCoordinateCalculator extends CoordinateCalculator {
 
-	private AddressCatalogue addressCatalogue;
 	private Service service;
 
 	@Inject
 	public SequentialCoordinateCalculator(AddressCatalogue addressCatalogue, Service service) {
-		this.addressCatalogue = addressCatalogue;
+		super(addressCatalogue);
 		this.service = service;
 	}
 
 	@Override
 	public void calculateCatalogueCoordinates(ProgressIndicator progressIndicator) {
-		int size = addressCatalogue.getAddresses().size();
+		int size = getAddressCatalogue().getAddresses().size();
 		progressIndicator.updateProgress(0, size);
 		long count = 0;
-		for (Address address : addressCatalogue.getAddresses()) {
+		for (Address address : getAddressCatalogue().getAddresses()) {
 			address.setCoordinate(service.computeCoordinate(address));
 			count++;
 			progressIndicator.updateProgress(count, size);

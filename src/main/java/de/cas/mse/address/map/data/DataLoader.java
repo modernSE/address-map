@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,6 +26,13 @@ public class DataLoader {
 	public void loadAddessesFromCsv(DataSize size) {
 		try {
 			List<String> lines = Files.readAllLines(Paths.get("data/addresses-small.data"));
+			int factor;
+			if (size == DataSize.SMALL) {
+				factor = 1;
+			} else {
+				factor = 5;
+			}
+
 			for (String line : lines) {
 				String[] parts = line.split(";");
 				Address a = new Address();
@@ -32,7 +40,7 @@ public class DataLoader {
 				a.setStreet(parts[1]);
 				a.setZip(parts[2]);
 				a.setTown(parts[3]);
-				addressCatalogue.getAddresses().add(a);
+				IntStream.of(factor).forEach(e -> addressCatalogue.getAddresses().add(a));
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
