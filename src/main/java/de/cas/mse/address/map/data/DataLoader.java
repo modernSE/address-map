@@ -33,15 +33,17 @@ public class DataLoader {
 				factor = 5;
 			}
 
-			for (String line : lines) {
-				String[] parts = line.split(";");
-				Address a = new Address();
-				a.setName(parts[0]);
-				a.setStreet(parts[1]);
-				a.setZip(parts[2]);
-				a.setTown(parts[3]);
-				IntStream.of(factor).forEach(e -> addressCatalogue.getAddresses().add(a));
-			}
+			IntStream.range(0, factor).forEach(e -> {
+				for (String line : lines) {
+					String[] parts = line.split(";");
+					Address a = new Address();
+					a.setName(parts[0]);
+					a.setStreet(parts[1]);
+					a.setZip(parts[2]);
+					a.setTown(parts[3]);
+					addressCatalogue.getAddresses().add(a);
+				}
+			});
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
