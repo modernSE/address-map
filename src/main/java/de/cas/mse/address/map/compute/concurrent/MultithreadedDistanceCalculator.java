@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import de.cas.mse.address.map.compute.DistanceCalculator;
+import de.cas.mse.address.map.compute.Service;
 import de.cas.mse.address.map.data.Address;
 import de.cas.mse.address.map.data.AddressCatalogue;
 import de.cas.mse.address.map.gui.tasks.ProgressIndicator;
@@ -13,9 +14,12 @@ import de.cas.mse.address.map.gui.tasks.ProgressIndicator;
 @Singleton
 public class MultithreadedDistanceCalculator extends DistanceCalculator {
 
+	private Service service;
+
 	@Inject
-	public MultithreadedDistanceCalculator(AddressCatalogue addressCatalogue) {
+	public MultithreadedDistanceCalculator(AddressCatalogue addressCatalogue, Service service) {
 		super(addressCatalogue);
+		this.service = service;
 	}
 
 	@Override
