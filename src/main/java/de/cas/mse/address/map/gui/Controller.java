@@ -7,6 +7,7 @@ import de.cas.mse.address.map.data.Address;
 import de.cas.mse.address.map.data.AddressCatalogue;
 import de.cas.mse.address.map.data.Connection;
 import de.cas.mse.address.map.gui.tasks.ComputeTask;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
@@ -49,21 +50,23 @@ public class Controller {
 	}
 
 	private void redraw() {
-		GraphicsContext gc = drawCanvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, drawCanvas.getWidth(), drawCanvas.getHeight());
-		gc.setFill(Color.BLACK);
-		for (Address address : catalogue.getAddresses()) {
-			Point2D currentCoordinate = address.getCoordinate();
-			if (currentCoordinate != null) {
-				gc.fillRect((int) currentCoordinate.getX(), (int) currentCoordinate.getY(), 3, 3);
+		Platform.runLater(() -> {
+			GraphicsContext gc = drawCanvas.getGraphicsContext2D();
+			gc.clearRect(0, 0, drawCanvas.getWidth(), drawCanvas.getHeight());
+			gc.setFill(Color.BLACK);
+			for (Address address : catalogue.getAddresses()) {
+				Point2D currentCoordinate = address.getCoordinate();
+				if (currentCoordinate != null) {
+					gc.fillRect((int) currentCoordinate.getX(), (int) currentCoordinate.getY(), 3, 3);
+				}
 			}
-		}
-		gc.setStroke(Color.GRAY);
-		for (Connection c : catalogue.getConnections()) {
-			Point2D c1 = c.getPoint1().getCoordinate();
-			Point2D c2 = c.getPoint2().getCoordinate();
-			gc.strokeLine(c1.getX() + 1, c1.getY() + 1, c2.getX() + 1, c2.getY() + 1);
-		}
+			gc.setStroke(Color.GRAY);
+			for (Connection c : catalogue.getConnections()) {
+				Point2D c1 = c.getPoint1().getCoordinate();
+				Point2D c2 = c.getPoint2().getCoordinate();
+				gc.strokeLine(c1.getX() + 1, c1.getY() + 1, c2.getX() + 1, c2.getY() + 1);
+			}
+		});
 	}
 
 }
