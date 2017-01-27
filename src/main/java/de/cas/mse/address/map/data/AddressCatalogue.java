@@ -2,6 +2,7 @@ package de.cas.mse.address.map.data;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.inject.Singleton;
 
@@ -9,7 +10,7 @@ import javax.inject.Singleton;
 public class AddressCatalogue {
 
 	private Set<Address> addresses = new HashSet<>();
-	private Set<Connection> connections = new HashSet<>();
+	private Set<Connection> connections = new CopyOnWriteArraySet<>();
 
 	public Set<Address> getAddresses() {
 		return addresses;
